@@ -191,7 +191,6 @@ class _InsertDonationDataState extends State<InsertDonationData> {
                           TextButton(
                             onPressed: () {
                               dbRef.push().set(donations);
-
                               Fluttertoast.showToast(
                                 msg: "Data Added Successfully!",
                                 toastLength: Toast.LENGTH_LONG,

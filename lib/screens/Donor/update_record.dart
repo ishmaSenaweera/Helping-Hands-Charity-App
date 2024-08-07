@@ -202,7 +202,6 @@ class _UpdateRecordState extends State<UpdateRecord> {
                           TextButton(
                             onPressed: () {
                               dbRef.child(widget.donorKey).update(donors);
-
                               Fluttertoast.showToast(
                                 msg: "Data Updated Successfully!",
                                 toastLength: Toast.LENGTH_LONG,

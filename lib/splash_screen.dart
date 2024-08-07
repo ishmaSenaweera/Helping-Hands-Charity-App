@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project/screens/Authentication/widget_tree.dart';
-import 'package:project/screens/Authentication/home_page.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

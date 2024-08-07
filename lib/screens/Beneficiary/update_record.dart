@@ -1,17 +1,20 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:project/screens/Beneficary/dashboard.dart';
+import 'package:project/screens/Beneficiary/fetch_data.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project/screens/Authentication/home_page.dart';
 
-class InsertData extends StatefulWidget {
-  const InsertData({Key? key}) : super(key: key);
+class UpdateRecord extends StatefulWidget {
+  const UpdateRecord({Key? key, required this.beneficiaryKey})
+      : super(key: key);
+
+  final String beneficiaryKey;
 
   @override
-  State<InsertData> createState() => _InsertDataState();
+  State<UpdateRecord> createState() => _UpdateRecordState();
 }
 
-class _InsertDataState extends State<InsertData> {
+class _UpdateRecordState extends State<UpdateRecord> {
   final nameController = TextEditingController();
   final addressController = TextEditingController();
   final emailController = TextEditingController();
@@ -24,7 +27,20 @@ class _InsertDataState extends State<InsertData> {
   @override
   void initState() {
     super.initState();
-    dbRef = FirebaseDatabase.instance.ref().child('Beneficaries');
+    dbRef = FirebaseDatabase.instance.ref().child('Beneficiaries');
+    getBeneficiaryData();
+  }
+
+  void getBeneficiaryData() async {
+    DataSnapshot snapshot = await dbRef.child(widget.beneficiaryKey).get();
+
+    Map item = snapshot.value as Map;
+
+    nameController.text = item['Beneficiary_Name'];
+    addressController.text = item['Beneficiary_Address'];
+    emailController.text = item['Beneficiary_Email'];
+    phoneController.text = item['Beneficiary_Phone'];
+    descriptionController.text = item['Beneficiary_Description'];
   }
 
   @override
@@ -45,11 +61,14 @@ class _InsertDataState extends State<InsertData> {
       body: Form(
         key: _formKey,
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
+              const SizedBox(
+                height: 20,
+              ),
               const Text(
-                'Insert Beneficiary Details',
+                'Update Beneficiary Details',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w500,
@@ -80,7 +99,7 @@ class _InsertDataState extends State<InsertData> {
               ),
               TextFormField(
                 controller: addressController,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Beneficiary Address *',
@@ -103,7 +122,7 @@ class _InsertDataState extends State<InsertData> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Beneficiary Email Address *',
-                  hintText: 'Enter Beneficiary Email',
+                  hintText: 'Enter Beneficiary Email Address',
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -141,7 +160,7 @@ class _InsertDataState extends State<InsertData> {
               ),
               TextFormField(
                 controller: descriptionController,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Beneficiary Description',
@@ -152,14 +171,13 @@ class _InsertDataState extends State<InsertData> {
                 height: 20,
               ),
               MaterialButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Map<String, String> beneficaries = {
-                      'Beneficary_Name': nameController.text,
-                      'Beneficary_Address': addressController.text,
-                      'Beneficary_Email': emailController.text,
-                      'Beneficary_Phone': phoneController.text,
-                      'Beneficary_Description': descriptionController.text
+                  onPressed: () {
+                    Map<String, String> beneficiaries = {
+                      'Beneficiary_Name': nameController.text,
+                      'Beneficiary_Address': addressController.text,
+                      'Beneficiary_Email': emailController.text,
+                      'Beneficiary_Phone': phoneController.text,
+                      'Beneficiary_Description': descriptionController.text
                     };
 
                     showDialog(
@@ -174,10 +192,12 @@ class _InsertDataState extends State<InsertData> {
                           ),
                           TextButton(
                             onPressed: () {
-                              dbRef.push().set(beneficaries);
+                              dbRef
+                                  .child(widget.beneficiaryKey)
+                                  .update(beneficiaries);
 
                               Fluttertoast.showToast(
-                                msg: "Data Added Successfully!",
+                                msg: "Data Updated Successfully!",
                                 toastLength: Toast.LENGTH_LONG,
                                 gravity: ToastGravity.BOTTOM,
                                 timeInSecForIosWeb: 5,
@@ -188,25 +208,23 @@ class _InsertDataState extends State<InsertData> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => BeneficaryHomePage()),
+                                    builder: (context) => FetchData()),
                               );
                             },
-                            child: Text('Yes'),
+                            child: const Text('Yes'),
                           ),
                         ],
                         title: const Text('Alert'),
                         contentPadding: const EdgeInsets.all(20.0),
-                        content: const Text('Do You Want To Insert Data ?'),
+                        content: const Text('Do You Want To Update Data ?'),
                       ),
                     );
-                  }
-                },
-                child: const Text('Insert Data'),
-                color: Colors.blue,
-                textColor: Colors.white,
-                minWidth: 300,
-                height: 40,
-              ),
+                  },
+                  color: Colors.blue,
+                  textColor: Colors.white,
+                  minWidth: 300,
+                  height: 40,
+                  child: const Text('Update Data')),
             ],
           ),
         ),

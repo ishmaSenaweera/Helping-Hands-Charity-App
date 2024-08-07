@@ -137,7 +137,8 @@ class _UpdateDonationDataState extends State<UpdateDonationData> {
               ),
               TextFormField(
                 controller: amountController,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Item Amount *',
@@ -191,7 +192,6 @@ class _UpdateDonationDataState extends State<UpdateDonationData> {
                         TextButton(
                           onPressed: () {
                             dbRef.child(widget.donationKey).update(donations);
-
                             Fluttertoast.showToast(
                               msg: "Data Updated Successfully!",
                               toastLength: Toast.LENGTH_LONG,

@@ -1,7 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
-import 'package:project/screens/Beneficary/update_record.dart';
+import 'package:project/screens/Beneficiary/update_record.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project/screens/Authentication/home_page.dart';
 
@@ -13,9 +13,9 @@ class FetchData extends StatefulWidget {
 }
 
 class _FetchDataState extends State<FetchData> {
-  Query dbRef = FirebaseDatabase.instance.ref().child('Beneficaries');
+  Query dbRef = FirebaseDatabase.instance.ref().child('Beneficiaries');
   DatabaseReference reference =
-      FirebaseDatabase.instance.ref().child('Beneficaries');
+      FirebaseDatabase.instance.ref().child('Beneficiaries');
 
   final TextEditingController _searchController = TextEditingController();
   late Query _searchQuery;
@@ -27,7 +27,7 @@ class _FetchDataState extends State<FetchData> {
     _searchQuery = dbRef;
   }
 
-  Widget listItem({required Map beneficary}) {
+  Widget listItem({required Map beneficiary}) {
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
@@ -38,36 +38,36 @@ class _FetchDataState extends State<FetchData> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Beneficiary Name: ${beneficary['Beneficary_Name']}',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            'Beneficiary Name: ${beneficiary['Beneficiary_Name']}',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            'Beneficiary Address: ${beneficary['Beneficary_Address']}',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            'Beneficiary Address: ${beneficiary['Beneficiary_Address']}',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            'Beneficiary Email: ${beneficary['Beneficary_Email']}',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            'Beneficiary Email: ${beneficiary['Beneficiary_Email']}',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            'Beneficiary Phone: ${beneficary['Beneficary_Phone']}',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            'Beneficiary Phone: ${beneficiary['Beneficiary_Phone']}',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            'Beneficiary Description: ${beneficary['Beneficary_Description']}',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            'Beneficiary Description: ${beneficiary['Beneficiary_Description']}',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -78,8 +78,8 @@ class _FetchDataState extends State<FetchData> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) =>
-                              UpdateRecord(beneficaryKey: beneficary['key'])));
+                          builder: (_) => UpdateRecord(
+                              beneficiaryKey: beneficiary['key'])));
                 },
                 child: Row(
                   children: [
@@ -107,7 +107,7 @@ class _FetchDataState extends State<FetchData> {
                         ),
                         TextButton(
                           onPressed: () {
-                            reference.child(beneficary['key']).remove();
+                            reference.child(beneficiary['key']).remove();
                             Navigator.of(context).pop();
 
                             Fluttertoast.showToast(
@@ -188,7 +188,7 @@ class _FetchDataState extends State<FetchData> {
                     _searchResults = [];
                     if (value.isNotEmpty) {
                       _searchQuery = dbRef
-                          .orderByChild('Beneficary_Name')
+                          .orderByChild('Beneficiary_Name')
                           .startAt(value.toLowerCase())
                           .endAt(value.toLowerCase());
                     } else {
@@ -203,17 +203,17 @@ class _FetchDataState extends State<FetchData> {
                 query: _searchQuery,
                 itemBuilder: (BuildContext context, DataSnapshot snapshot,
                     Animation<double> animation, int index) {
-                  Map beneficary = snapshot.value as Map;
-                  beneficary['key'] = snapshot.key;
+                  Map beneficiary = snapshot.value as Map;
+                  beneficiary['key'] = snapshot.key;
                   if (_searchController.text.isNotEmpty &&
-                      !beneficary['Beneficary_Name']
+                      !beneficiary['Beneficiary_Name']
                           .toLowerCase()
                           .contains(_searchController.text.toLowerCase())) {
                     return Container();
                   }
                   // Add the filtered volunteer to the search results list
-                  _searchResults.add(beneficary);
-                  return listItem(beneficary: beneficary);
+                  _searchResults.add(beneficiary);
+                  return listItem(beneficiary: beneficiary);
                 },
               ),
             ),

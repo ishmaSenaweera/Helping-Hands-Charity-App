@@ -194,7 +194,6 @@ class _InsertVolunteerState extends State<InsertVolunteer> {
                                 TextButton(
                                   onPressed: () {
                                     dbRef.push().set(volunteers);
-
                                     Fluttertoast.showToast(
                                       msg: "Data Added Successfully!",
                                       toastLength: Toast.LENGTH_LONG,

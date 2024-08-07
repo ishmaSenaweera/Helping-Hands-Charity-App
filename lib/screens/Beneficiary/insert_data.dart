@@ -1,19 +1,17 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:project/screens/Beneficary/fetch_data.dart';
+import 'package:project/screens/Beneficiary/dashboard.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project/screens/Authentication/home_page.dart';
 
-class UpdateRecord extends StatefulWidget {
-  const UpdateRecord({Key? key, required this.beneficaryKey}) : super(key: key);
-
-  final String beneficaryKey;
+class InsertData extends StatefulWidget {
+  const InsertData({Key? key}) : super(key: key);
 
   @override
-  State<UpdateRecord> createState() => _UpdateRecordState();
+  State<InsertData> createState() => _InsertDataState();
 }
 
-class _UpdateRecordState extends State<UpdateRecord> {
+class _InsertDataState extends State<InsertData> {
   final nameController = TextEditingController();
   final addressController = TextEditingController();
   final emailController = TextEditingController();
@@ -26,20 +24,7 @@ class _UpdateRecordState extends State<UpdateRecord> {
   @override
   void initState() {
     super.initState();
-    dbRef = FirebaseDatabase.instance.ref().child('Beneficaries');
-    getBeneficaryData();
-  }
-
-  void getBeneficaryData() async {
-    DataSnapshot snapshot = await dbRef.child(widget.beneficaryKey).get();
-
-    Map item = snapshot.value as Map;
-
-    nameController.text = item['Beneficary_Name'];
-    addressController.text = item['Beneficary_Address'];
-    emailController.text = item['Beneficary_Email'];
-    phoneController.text = item['Beneficary_Phone'];
-    descriptionController.text = item['Beneficary_Description'];
+    dbRef = FirebaseDatabase.instance.ref().child('Beneficiaries');
   }
 
   @override
@@ -60,14 +45,11 @@ class _UpdateRecordState extends State<UpdateRecord> {
       body: Form(
         key: _formKey,
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              const SizedBox(
-                height: 20,
-              ),
               const Text(
-                'Update Beneficiary Details',
+                'Insert Beneficiary Details',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w500,
@@ -98,7 +80,7 @@ class _UpdateRecordState extends State<UpdateRecord> {
               ),
               TextFormField(
                 controller: addressController,
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Beneficiary Address *',
@@ -121,7 +103,7 @@ class _UpdateRecordState extends State<UpdateRecord> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Beneficiary Email Address *',
-                  hintText: 'Enter Beneficiary Email Address',
+                  hintText: 'Enter Beneficiary Email',
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -159,7 +141,7 @@ class _UpdateRecordState extends State<UpdateRecord> {
               ),
               TextFormField(
                 controller: descriptionController,
-                keyboardType: TextInputType.phone,
+                keyboardType: TextInputType.text,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Beneficiary Description',
@@ -170,61 +152,60 @@ class _UpdateRecordState extends State<UpdateRecord> {
                 height: 20,
               ),
               MaterialButton(
-                onPressed: () {
-                  Map<String, String> beneficaries = {
-                    'Beneficary_Name': nameController.text,
-                    'Beneficary_Address': addressController.text,
-                    'Beneficary_Email': emailController.text,
-                    'Beneficary_Phone': phoneController.text,
-                    'Beneficary_Description': descriptionController.text
-                  };
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      Map<String, String> beneficiaries = {
+                        'Beneficiary_Name': nameController.text,
+                        'Beneficiary_Address': addressController.text,
+                        'Beneficiary_Email': emailController.text,
+                        'Beneficiary_Phone': phoneController.text,
+                        'Beneficiary_Description': descriptionController.text
+                      };
 
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('No'),
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('No'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                dbRef.push().set(beneficiaries);
+                                Fluttertoast.showToast(
+                                  msg: "Data Added Successfully!",
+                                  toastLength: Toast.LENGTH_LONG,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 5,
+                                  backgroundColor: Colors.grey,
+                                  textColor: Colors.black,
+                                  fontSize: 15,
+                                );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const BeneficiaryHomePage()),
+                                );
+                              },
+                              child: const Text('Yes'),
+                            ),
+                          ],
+                          title: const Text('Alert'),
+                          contentPadding: const EdgeInsets.all(20.0),
+                          content: const Text('Do You Want To Insert Data ?'),
                         ),
-                        TextButton(
-                          onPressed: () {
-                            dbRef
-                                .child(widget.beneficaryKey)
-                                .update(beneficaries);
-
-                            Fluttertoast.showToast(
-                              msg: "Data Updated Successfully!",
-                              toastLength: Toast.LENGTH_LONG,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 5,
-                              backgroundColor: Colors.grey,
-                              textColor: Colors.black,
-                              fontSize: 15,
-                            );
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => FetchData()),
-                            );
-                          },
-                          child: Text('Yes'),
-                        ),
-                      ],
-                      title: const Text('Alert'),
-                      contentPadding: const EdgeInsets.all(20.0),
-                      content: const Text('Do You Want To Update Data ?'),
-                    ),
-                  );
-                },
-                child: const Text('Update Data'),
-                color: Colors.blue,
-                textColor: Colors.white,
-                minWidth: 300,
-                height: 40,
-              ),
+                      );
+                    }
+                  },
+                  color: Colors.blue,
+                  textColor: Colors.white,
+                  minWidth: 300,
+                  height: 40,
+                  child: const Text('Insert Data')),
             ],
           ),
         ),

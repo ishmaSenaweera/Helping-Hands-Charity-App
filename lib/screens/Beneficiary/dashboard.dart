@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:project/screens/Beneficary/insert_data.dart';
-import 'package:project/screens/Beneficary/fetch_data.dart';
+import 'package:project/screens/Beneficiary/insert_data.dart';
+import 'package:project/screens/Beneficiary/fetch_data.dart';
 import 'package:project/screens/Authentication/home_page.dart';
 
-class BeneficaryHomePage extends StatefulWidget {
-  const BeneficaryHomePage({Key? key}) : super(key: key);
+class BeneficiaryHomePage extends StatefulWidget {
+  const BeneficiaryHomePage({Key? key}) : super(key: key);
 
   @override
-  State<BeneficaryHomePage> createState() => _BeneficaryHomePageState();
+  State<BeneficiaryHomePage> createState() => _BeneficiaryHomePageState();
 }
 
-class _BeneficaryHomePageState extends State<BeneficaryHomePage> {
+class _BeneficiaryHomePageState extends State<BeneficiaryHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,32 +51,32 @@ class _BeneficaryHomePageState extends State<BeneficaryHomePage> {
               height: 50,
             ),
             MaterialButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const InsertData()));
-              },
-              child: const Text('Insert Beneficiary Details'),
-              color: Colors.blue,
-              textColor: Colors.white,
-              minWidth: 300,
-              height: 40,
-            ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const InsertData()));
+                },
+                color: Colors.blue,
+                textColor: Colors.white,
+                minWidth: 300,
+                height: 40,
+                child: const Text('Insert Beneficiary Details')),
             const SizedBox(
               height: 30,
             ),
             MaterialButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const FetchData()));
-              },
-              child: const Text('View Beneficiary Details'),
-              color: Colors.blue,
-              textColor: Colors.white,
-              minWidth: 300,
-              height: 40,
-            ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FetchData()));
+                },
+                color: Colors.blue,
+                textColor: Colors.white,
+                minWidth: 300,
+                height: 40,
+                child: const Text('View Beneficiary Details')),
           ],
         ),
       ),

@@ -209,7 +209,6 @@ class _UpdateVolunteerState extends State<UpdateVolunteer> {
                                       dbRef
                                           .child(widget.volunteerKey)
                                           .update(volunteers);
-
                                       Fluttertoast.showToast(
                                         msg: "Data Updated Successfully!",
                                         toastLength: Toast.LENGTH_LONG,
