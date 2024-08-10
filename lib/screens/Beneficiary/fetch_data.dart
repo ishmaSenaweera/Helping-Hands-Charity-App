@@ -180,7 +180,7 @@ class _FetchDataState extends State<FetchData> {
                   ),
                   prefixIconConstraints:
                       BoxConstraints(maxHeight: 20, minWidth: 25),
-                  hintText: "Search Beneficiary Details By Beneficiary Name",
+                  hintText: "Search Beneficiary Details By Name",
                   hintStyle: TextStyle(color: Colors.grey),
                 ),
                 onChanged: (value) {

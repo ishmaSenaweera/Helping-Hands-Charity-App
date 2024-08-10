@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:project/screens/Authentication/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -62,6 +63,11 @@ class _LoginPageState extends State<LoginPage>
           );
         }
 
+        // If email is verified, navigate to HomePage
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+
         if (loginAnimation == false) {
           _controllerAnimation.forward();
           loginAnimation = true;
@@ -89,7 +95,7 @@ class _LoginPageState extends State<LoginPage>
         isLoading = true;
       });
       try {
-        await Auth().CreateUserWithEmailAndPassword(
+        await Auth().createUserWithEmailAndPassword(
           email: _controllerEmail.text,
           password: _controllerPassword.text,
         );
@@ -152,12 +158,12 @@ class _LoginPageState extends State<LoginPage>
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Permission Granted'),
+              title: const Text('Permission Granted'),
               content:
                   Text('${permission.toString()} permission has been granted.'),
               actions: <Widget>[
                 TextButton(
-                  child: Text('OK'),
+                  child: const Text('OK'),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -181,7 +187,7 @@ class _LoginPageState extends State<LoginPage>
       onPressed: () {
         requestMultiplePermissions(context); // Pass the context
       },
-      child: Text('Request Permissions'),
+      child: const Text('Request Permissions'),
     );
   }
 
@@ -283,7 +289,7 @@ class _LoginPageState extends State<LoginPage>
         ElevatedButton(
           onPressed: signInWithGoogle,
           style: ElevatedButton.styleFrom(
-            primary: Colors.red, // Customize the button color
+            backgroundColor: Colors.red, // Customize the button color
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,

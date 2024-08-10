@@ -7,6 +7,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:project/screens/Donation/dashboard.dart';
 import 'package:project/screens/Donor/dashboard.dart';
 import 'package:project/screens/Volunteer/dashboard.dart';
+import 'package:project/screens/Authentication/login_register_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -27,7 +28,10 @@ class _HomePageState extends State<HomePage> {
   ];
 
   Future<void> signOut() async {
-    await Auth().signOut();
+    Auth().signOut();
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
   }
 
   Widget _title() {
@@ -59,7 +63,6 @@ class _HomePageState extends State<HomePage> {
           image: DecorationImage(
             image: NetworkImage(
                 'https://img.freepik.com/free-vector/vibrant-summer-ombre-background-vector_53876-105765.jpg?w=360'),
-            // AssetImage("back/background.jpg"),
             fit: BoxFit.cover,
           ),
         ),
@@ -123,7 +126,7 @@ class _HomePageState extends State<HomePage> {
               textColor: Colors.white,
               minWidth: 300,
               height: 40,
-              child: const Text('Donor'),
+              child: const Text('Donors'),
             ),
             const SizedBox(
               height: 20,
@@ -155,7 +158,7 @@ class _HomePageState extends State<HomePage> {
               textColor: Colors.white,
               minWidth: 300,
               height: 40,
-              child: const Text('Beneficiary'),
+              child: const Text('Beneficiaries'),
             ),
             const SizedBox(
               height: 40,
