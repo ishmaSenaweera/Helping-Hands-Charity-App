@@ -39,7 +39,7 @@ class _VolunteerHomePageState extends State<VolunteerHomePage> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
             const Image(
               width: 300,
@@ -48,7 +48,7 @@ class _VolunteerHomePageState extends State<VolunteerHomePage> {
                   'https://img.freepik.com/free-vector/people-volunteering-donating-money_53876-66112.jpg'),
             ),
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
             MaterialButton(
               onPressed: () {

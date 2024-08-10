@@ -206,7 +206,7 @@ class _InsertDataState extends State<InsertData> {
                         ],
                         title: const Text('Alert'),
                         contentPadding: const EdgeInsets.all(20.0),
-                        content: const Text('Do You Want To Insert Data ?'),
+                        content: const Text('Do You Want to Insert Data ?'),
                       ),
                     );
                   }

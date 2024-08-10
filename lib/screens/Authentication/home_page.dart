@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage> {
               textColor: Colors.white,
               minWidth: 300,
               height: 40,
-              child: const Text('Donar'),
+              child: const Text('Donor'),
             ),
             const SizedBox(
               height: 20,

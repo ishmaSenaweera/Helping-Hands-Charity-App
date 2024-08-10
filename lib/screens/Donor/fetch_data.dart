@@ -30,42 +30,42 @@ class _FetchDataState extends State<FetchData> {
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
-      height: 180,
-      color: Colors.amberAccent,
+      decoration: BoxDecoration(
+          color: Colors.amberAccent, borderRadius: BorderRadius.circular(10)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Donor Name: ${donor['Donor_Name']}',
+            'Donor\'s Name: ${donor['Donor_Name']}',
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            'Donor Address: ${donor['Donor_Address']}',
+            'Donor\'s Address: ${donor['Donor_Address']}',
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            'Donor Email: ${donor['Donor_Email']}',
+            'Donor\'s Email: ${donor['Donor_Email']}',
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            'Donor Nic: ${donor['Donor_Nic']}',
+            'Donor\'s Nic: ${maskNic(donor['Donor_Nic'])}',
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            'Donor Phone: ${donor['Donor_Phone']}',
+            'Donor\'s Phone: ${donor['Donor_Phone']}',
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           Row(
@@ -124,7 +124,7 @@ class _FetchDataState extends State<FetchData> {
                       ],
                       title: const Text('Alert'),
                       contentPadding: const EdgeInsets.all(20.0),
-                      content: const Text('Do You Want To Delete Data ?'),
+                      content: const Text('Do You Want to Delete Data ?'),
                     ),
                   );
                 },
@@ -142,6 +142,12 @@ class _FetchDataState extends State<FetchData> {
         ],
       ),
     );
+  }
+
+  String maskNic(String nic) {
+    return nic.substring(0, 4) +
+        '*' * (nic.length - 5) +
+        nic.substring(nic.length - 1);
   }
 
   @override
@@ -179,7 +185,7 @@ class _FetchDataState extends State<FetchData> {
                   ),
                   prefixIconConstraints:
                       BoxConstraints(maxHeight: 20, minWidth: 25),
-                  hintText: "Search donor By Donor Name",
+                  hintText: "Search Donor By Donor Name",
                   hintStyle: TextStyle(color: Colors.grey),
                 ),
                 onChanged: (value) {

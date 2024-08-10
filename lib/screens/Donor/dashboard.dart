@@ -39,7 +39,7 @@ class _DonorHomePageState extends State<DonorHomePage> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
             const Image(
               width: 300,
@@ -48,7 +48,7 @@ class _DonorHomePageState extends State<DonorHomePage> {
                   'https://www.ouronlyhome.eu/wp-content/uploads/2022/03/donating-to-ngos-1024x695.png'),
             ),
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
             MaterialButton(
               onPressed: () {
@@ -64,7 +64,7 @@ class _DonorHomePageState extends State<DonorHomePage> {
               child: const Text('Insert Donor Details'),
             ),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
             MaterialButton(
               onPressed: () {

@@ -222,7 +222,7 @@ class _UpdateRecordState extends State<UpdateRecord> {
                         ],
                         title: const Text('Alert'),
                         contentPadding: const EdgeInsets.all(20.0),
-                        content: const Text('Do You Want To Update Data ?'),
+                        content: const Text('Do You Want to Update Data ?'),
                       ),
                     );
                   }

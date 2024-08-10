@@ -31,8 +31,8 @@ class _FetchDonationDataState extends State<FetchDonationData> {
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
-      height: 180,
-      color: Colors.amberAccent,
+      decoration: BoxDecoration(
+          color: Colors.amberAccent, borderRadius: BorderRadius.circular(10)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +59,7 @@ class _FetchDonationDataState extends State<FetchDonationData> {
             height: 5,
           ),
           Text(
-            'Amount: ${donation['Amount']}',
+            'Amount: Rs. ${donation['Amount']}',
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
@@ -95,8 +95,6 @@ class _FetchDonationDataState extends State<FetchDonationData> {
               ),
               GestureDetector(
                 onTap: () {
-                  // reference.child(donation['key']).remove();
-
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
@@ -111,7 +109,6 @@ class _FetchDonationDataState extends State<FetchDonationData> {
                           onPressed: () {
                             reference.child(donation['key']).remove();
                             Navigator.of(context).pop();
-
                             Fluttertoast.showToast(
                               msg: "Data Deleted Successfully!",
                               toastLength: Toast.LENGTH_LONG,
@@ -127,7 +124,7 @@ class _FetchDonationDataState extends State<FetchDonationData> {
                       ],
                       title: const Text('Alert'),
                       contentPadding: const EdgeInsets.all(20.0),
-                      content: const Text('Do You Want To Delete Data ?'),
+                      content: const Text('Do You Want to Delete Data ?'),
                     ),
                   );
                 },

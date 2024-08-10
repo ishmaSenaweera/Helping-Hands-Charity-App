@@ -102,16 +102,14 @@ class _InsertDataState extends State<InsertData> {
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Beneficiary Email Address *',
+                  labelText: 'Beneficiary Email Address',
                   hintText: 'Enter Beneficiary Email',
                 ),
                 validator: (value) {
-                  if (value!.isEmpty) {
-                    return "This field is required";
-                  } else if (!value.contains('@')) {
-                    return "Please enter a valid email";
-                  } else {
-                    return null;
+                  if (value != null && value.isNotEmpty) {
+                    if (!value.contains('@')) {
+                      return "Please enter a valid email";
+                    }
                   }
                 },
               ),
@@ -196,7 +194,7 @@ class _InsertDataState extends State<InsertData> {
                           ],
                           title: const Text('Alert'),
                           contentPadding: const EdgeInsets.all(20.0),
-                          content: const Text('Do You Want To Insert Data ?'),
+                          content: const Text('Do You Want to Insert Data ?'),
                         ),
                       );
                     }

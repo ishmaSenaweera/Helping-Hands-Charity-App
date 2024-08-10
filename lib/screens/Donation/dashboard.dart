@@ -40,7 +40,7 @@ class _DonationHomePageState extends State<DonationHomePage> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
             const Image(
               width: 300,
@@ -49,7 +49,7 @@ class _DonationHomePageState extends State<DonationHomePage> {
                   'https://i0.wp.com/ketto.blog/wp-content/uploads/2020/10/shutterstock_1735703225-e1603424756464.jpg?fit=547%2C292&ssl=1'),
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             MaterialButton(
               onPressed: () {
@@ -65,7 +65,7 @@ class _DonationHomePageState extends State<DonationHomePage> {
               child: const Text('Insert Donation Details'),
             ),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
             MaterialButton(
               onPressed: () {
@@ -81,18 +81,7 @@ class _DonationHomePageState extends State<DonationHomePage> {
               child: const Text('View Donation Details'),
             ),
             const SizedBox(
-              height: 30,
-            ),
-            MaterialButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => encryption()));
-              },
-              color: Colors.red,
-              textColor: Colors.white,
-              minWidth: 300,
-              height: 40,
-              child: const Text('Encryption'),
+              height: 20,
             ),
           ],
         ),

@@ -58,7 +58,7 @@ class _InsertVolunteerState extends State<InsertVolunteer> {
                       height: 20,
                     ),
                     const Text(
-                      'Register as a New Volunteer',
+                      'Insert Volunteer Details',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w500,

@@ -39,7 +39,7 @@ class _BeneficiaryHomePageState extends State<BeneficiaryHomePage> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
             const Image(
               width: 300,
@@ -48,7 +48,7 @@ class _BeneficiaryHomePageState extends State<BeneficiaryHomePage> {
                   'https://healthpayerintelligence.com/images/site/article_headers/_normal/GettyImages-1205508943.png'),
             ),
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
             MaterialButton(
                 onPressed: () {
@@ -63,7 +63,7 @@ class _BeneficiaryHomePageState extends State<BeneficiaryHomePage> {
                 height: 40,
                 child: const Text('Insert Beneficiary Details')),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
             MaterialButton(
                 onPressed: () {

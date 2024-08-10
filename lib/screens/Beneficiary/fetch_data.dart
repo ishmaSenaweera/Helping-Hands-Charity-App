@@ -31,8 +31,8 @@ class _FetchDataState extends State<FetchData> {
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
-      height: 200,
-      color: Colors.amberAccent,
+      decoration: BoxDecoration(
+          color: Colors.amberAccent, borderRadius: BorderRadius.circular(10)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,7 +125,7 @@ class _FetchDataState extends State<FetchData> {
                       ],
                       title: const Text('Alert'),
                       contentPadding: const EdgeInsets.all(20.0),
-                      content: const Text('Do You Want To Delete Data ?'),
+                      content: const Text('Do You Want to Delete Data ?'),
                     ),
                   );
                 },
