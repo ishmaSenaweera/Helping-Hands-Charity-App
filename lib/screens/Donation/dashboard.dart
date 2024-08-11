@@ -43,7 +43,7 @@ class _DonationHomePageState extends State<DonationHomePage> {
               height: 20,
             ),
             Image.asset(
-              'assets/donation.jpg',
+              'assets/donation.png',
               height: 300,
               width: 300,
             ),

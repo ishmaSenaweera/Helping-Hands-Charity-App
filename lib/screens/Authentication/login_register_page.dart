@@ -158,18 +158,22 @@ class _LoginPageState extends State<LoginPage>
   Widget _title() {
     return const Text(
       'Helping Hands',
-      style: TextStyle(color: Colors.white),
+      style: TextStyle(
+          color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
     );
   }
 
-  Widget _entryField(
-    String title,
-    TextEditingController controller,
-  ) {
+  Widget _entryField(String title, TextEditingController controller) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
         labelText: title,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Colors.blue),
+        ),
+        filled: true,
+        fillColor: Colors.white,
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -192,6 +196,12 @@ class _LoginPageState extends State<LoginPage>
       decoration: InputDecoration(
         labelText: 'Password',
         hintText: 'Enter your password',
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Colors.blue),
+        ),
+        filled: true,
+        fillColor: Colors.white,
         suffixIcon: IconButton(
           icon: Icon(
             _passwordVisible ? Icons.visibility : Icons.visibility_off,
@@ -240,24 +250,28 @@ class _LoginPageState extends State<LoginPage>
 
   Widget _successMessage() {
     return Text(
-        successMessage == null || successMessage!.isEmpty
-            ? ''
-            : 'Success : $successMessage',
-        style: const TextStyle(color: Colors.green));
+      successMessage == null || successMessage!.isEmpty
+          ? ''
+          : 'Success : $successMessage',
+      style: const TextStyle(color: Colors.green),
+    );
   }
 
   Widget _submitButton() {
     return Column(
       children: [
         SizedBox(
-          width: 250,
-          height: 40,
+          width: double.infinity,
+          height: 50,
           child: ElevatedButton(
             onPressed: isLogin
                 ? signInWithEmailAndPassword
                 : createUserWithEmailAndPassword,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
             child: Text(
               isLogin ? 'Login' : 'Register',
@@ -267,17 +281,19 @@ class _LoginPageState extends State<LoginPage>
         ),
         const SizedBox(height: 10),
         SizedBox(
-          width: 250,
-          height: 40,
+          width: double.infinity,
+          height: 50,
           child: ElevatedButton(
-            onPressed: () async {
-              signInWithGoogle();
-            },
+            onPressed: signInWithGoogle,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset('assets/google_logo2.png', height: 24.0),
                 const SizedBox(width: 12.0),
@@ -337,7 +353,7 @@ class _LoginPageState extends State<LoginPage>
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(_backgroundImage),
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
           ),
         ),
         padding: const EdgeInsets.all(20),
@@ -360,7 +376,15 @@ class _LoginPageState extends State<LoginPage>
                           loginAnimation = false;
                         }
                       },
-                      child: _animation(),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.asset(
+                          'assets/logo.png',
+                          height: 300,
+                          width: 300,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
