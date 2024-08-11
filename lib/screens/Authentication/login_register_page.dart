@@ -28,6 +28,7 @@ class _LoginPageState extends State<LoginPage>
 
   @override
   void initState() {
+    super.initState();
     _passwordVisible = false;
 
     _controllerAnimation = AnimationController(
@@ -78,6 +79,7 @@ class _LoginPageState extends State<LoginPage>
       } on FirebaseAuthException catch (e) {
         setState(() {
           isLoading = false;
+          print(e.message);
           errorMessage = "Email or password is incorrect.";
         });
         return;
@@ -228,13 +230,18 @@ class _LoginPageState extends State<LoginPage>
   }
 
   Widget _errorMessage() {
-    return Text(errorMessage == '' ? '' : 'Error : $errorMessage');
+    return Text(
+      errorMessage == '' ? '' : 'Error : $errorMessage',
+      style: const TextStyle(color: Colors.red),
+    );
   }
 
   Widget _successMessage() {
-    return Text(successMessage == null || successMessage!.isEmpty
-        ? ''
-        : 'Success : $successMessage');
+    return Text(
+        successMessage == null || successMessage!.isEmpty
+            ? ''
+            : 'Success : $successMessage',
+        style: const TextStyle(color: Colors.green));
   }
 
   Widget _submitButton() {

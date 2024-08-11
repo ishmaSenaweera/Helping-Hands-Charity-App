@@ -112,6 +112,7 @@ class _InsertDataState extends State<InsertData> {
                       return "Please enter a valid email";
                     }
                   }
+                  return null;
                 },
               ),
               const SizedBox(

@@ -11,8 +11,7 @@ class EmailVerificationPage extends StatefulWidget {
 class EmailVerificationPageState extends State<EmailVerificationPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late User? _user;
-  bool _isSendingVerification = false;
-  bool _isVerificationEmailSent = false;
+  final bool _isVerificationEmailSent = false;
 
   @override
   void initState() {

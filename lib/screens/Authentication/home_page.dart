@@ -39,7 +39,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _userUid() {
-    return Text(user?.email ?? 'User email');
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Text(
+        user?.email ?? 'User email',
+      ),
+    );
   }
 
   @override
@@ -57,7 +62,7 @@ class _HomePageState extends State<HomePage> {
           signOut();
         },
         backgroundColor: Colors.blue,
-        child: const Icon(Icons.logout_rounded),
+        child: const Icon(Icons.logout_rounded, color: Colors.white),
       ),
       body: Container(
         decoration: const BoxDecoration(
