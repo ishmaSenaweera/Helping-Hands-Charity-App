@@ -254,16 +254,17 @@ class _FetchVolunteerState extends State<FetchVolunteer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: GestureDetector(
-          onTap: () => {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage()),
-            )
-          },
-          child: const Text('Helping Hands'),
-        ),
-      ),
+          title: GestureDetector(
+            onTap: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              )
+            },
+            child: const Text('Helping Hands',
+                style: TextStyle(color: Colors.white)),
+          ),
+          backgroundColor: const Color.fromARGB(255, 50, 182, 230)),
       body: Container(
         height: MediaQuery.of(context).size.height,
         child: Column(

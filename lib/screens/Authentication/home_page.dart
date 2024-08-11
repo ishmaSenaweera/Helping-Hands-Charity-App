@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   final User? user = Auth().currentUser;
 
   int activeIndex = 0;
-  final controller = CarouselController();
+  final controller = CarouselSliderController();
   final urlImages = [
     'assets/images/image1.png',
     'assets/images/image2.png',
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _title() {
-    return const Text('Helping Hands');
+    return const Text('Helping Hands', style: TextStyle(color: Colors.white));
   }
 
   Widget _userUid() {
@@ -50,6 +50,7 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           _userUid(),
         ],
+        backgroundColor: Colors.blue,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -61,8 +62,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(
-                'https://img.freepik.com/free-vector/vibrant-summer-ombre-background-vector_53876-105765.jpg?w=360'),
+            image: AssetImage('assets/background.png'),
             fit: BoxFit.cover,
           ),
         ),

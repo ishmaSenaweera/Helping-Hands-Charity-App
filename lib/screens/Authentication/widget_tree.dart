@@ -1,7 +1,7 @@
 import 'package:project/screens/Authentication/auth.dart';
 import 'package:project/screens/Authentication/home_page.dart';
 import 'package:project/screens/Authentication/login_register_page.dart';
-import 'package:project/screens/Authentication/email_verification_page.dart'; // <-- Create and import this
+import 'package:project/screens/Authentication/email_verification_page.dart'; 
 import 'package:flutter/material.dart';
 
 class WidgetTree extends StatefulWidget {

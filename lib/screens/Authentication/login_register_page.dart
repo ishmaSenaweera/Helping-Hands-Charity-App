@@ -3,7 +3,6 @@ import 'package:project/screens/Authentication/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:project/screens/Authentication/home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,6 +24,7 @@ class _LoginPageState extends State<LoginPage>
   final TextEditingController _controllerPassword = TextEditingController();
   late final AnimationController _controllerAnimation;
   final _formKey = GlobalKey<FormState>();
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   @override
   void initState() {
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage>
       } on FirebaseAuthException catch (e) {
         setState(() {
           isLoading = false;
-          errorMessage = e.message;
+          errorMessage = "Email or password is incorrect.";
         });
         return;
       }
@@ -118,7 +118,7 @@ class _LoginPageState extends State<LoginPage>
 
   Future<void> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
       if (googleUser == null) {
         // User canceled the sign-in process
@@ -127,72 +127,35 @@ class _LoginPageState extends State<LoginPage>
 
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
+
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      // Check if the sign-in was successful
+      if (userCredential.user != null && mounted) {
+        // Navigate to the home page after successful sign-in
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      }
     } catch (e) {
       setState(() {
-        errorMessage = e.toString();
+        errorMessage = "Could not sign in with Google! Please try again.";
       });
     }
   }
 
-  Future<void> requestMultiplePermissions(BuildContext context) async {
-    final permissions = [
-      Permission.camera,
-      Permission.microphone,
-      // Add more permissions you need here
-    ];
-
-    Map<Permission, PermissionStatus> statuses = await permissions.request();
-
-    // Check the status of each requested permission
-    statuses.forEach((permission, status) {
-      if (status.isGranted) {
-        // Permission granted
-        print('${permission.toString()}: granted');
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Permission Granted'),
-              content:
-                  Text('${permission.toString()} permission has been granted.'),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('OK'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      } else if (status.isDenied) {
-        // Permission denied
-        print('${permission.toString()}: denied');
-      } else if (status.isPermanentlyDenied) {
-        // Permission permanently denied, ask user to go to settings
-        openAppSettings();
-      }
-    });
-  }
-
-  Widget _permissionButton() {
-    return ElevatedButton(
-      onPressed: () {
-        requestMultiplePermissions(context); // Pass the context
-      },
-      child: const Text('Request Permissions'),
-    );
-  }
-
   Widget _title() {
-    return const Text('Helping Hands');
+    return const Text(
+      'Helping Hands',
+      style: TextStyle(color: Colors.white),
+    );
   }
 
   Widget _entryField(
@@ -217,9 +180,7 @@ class _LoginPageState extends State<LoginPage>
     );
   }
 
-  Widget _passwordEntryField(
-    TextEditingController controller,
-  ) {
+  Widget _passwordEntryField(TextEditingController controller) {
     return TextFormField(
       keyboardType: TextInputType.text,
       controller: controller,
@@ -242,19 +203,24 @@ class _LoginPageState extends State<LoginPage>
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please enter a password';
-        } else if (value.length < 8) {
-          return 'Password should be at least 8 characters';
-        } else if (!RegExp(r'(?=.*[A-Z])').hasMatch(value)) {
-          return 'Password should have at least one uppercase letter';
-        } else if (!RegExp(r'(?=.*[a-z])').hasMatch(value)) {
-          return 'Password should have at least one lowercase letter';
-        } else if (!RegExp(r'(?=.*\d)').hasMatch(value)) {
-          return 'Password should have at least one number';
-        } else if (!RegExp(r'(?=.*[!@#$%^&*()\-_=+{};:,.<>?~])')
-            .hasMatch(value)) {
-          return 'Password should have at least one special character';
-        } else if (RegExp(r'\s').hasMatch(value)) {
-          return 'Password should not contain spaces';
+        }
+
+        if (!isLogin) {
+          if (value.length < 8) {
+            return 'Password should be at least 8 characters';
+          } else if (!RegExp(r'(?=.*[A-Z])').hasMatch(value)) {
+            return 'Password should have at least one uppercase letter';
+          } else if (!RegExp(r'(?=.*[a-z])').hasMatch(value)) {
+            return 'Password should have at least one lowercase letter';
+          } else if (!RegExp(r'(?=.*\d)').hasMatch(value)) {
+            return 'Password should have at least one number';
+          } else if (!RegExp(r'(?=.*[!@#$%^&*()\-_=+{};:,.<>?~])')
+              .hasMatch(value)) {
+            return 'Password should have at least one special character';
+          } else if (RegExp(r'\s').hasMatch(value)) {
+            return 'Password should not contain spaces';
+          }
+          return null;
         }
         return null;
       },
@@ -271,33 +237,47 @@ class _LoginPageState extends State<LoginPage>
         : 'Success : $successMessage');
   }
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-    clientId:
-        '684143871341-9dvnce6gk60jbpinsfbh9740ni2ur2m1.apps.googleusercontent.com',
-  );
-
   Widget _submitButton() {
     return Column(
       children: [
-        ElevatedButton(
-          onPressed: isLogin
-              ? signInWithEmailAndPassword
-              : createUserWithEmailAndPassword,
-          child: Text(isLogin ? 'Login' : 'Register'),
+        SizedBox(
+          width: 250,
+          height: 40,
+          child: ElevatedButton(
+            onPressed: isLogin
+                ? signInWithEmailAndPassword
+                : createUserWithEmailAndPassword,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+            ),
+            child: Text(
+              isLogin ? 'Login' : 'Register',
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
         ),
         const SizedBox(height: 10),
-        ElevatedButton(
-          onPressed: signInWithGoogle,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red, // Customize the button color
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset('assets/google_logo2.png', height: 24.0),
-              const SizedBox(width: 12.0),
-              const Text('Sign in with Google'),
-            ],
+        SizedBox(
+          width: 250,
+          height: 40,
+          child: ElevatedButton(
+            onPressed: () async {
+              signInWithGoogle();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset('assets/google_logo2.png', height: 24.0),
+                const SizedBox(width: 12.0),
+                const Text(
+                  'Sign in with Google',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -305,13 +285,21 @@ class _LoginPageState extends State<LoginPage>
   }
 
   Widget _loginOrRegistrationButton() {
-    return TextButton(
-      onPressed: () {
-        setState(() {
-          isLogin = !isLogin;
-        });
-      },
-      child: Text(isLogin ? 'Register instead' : 'Login instead'),
+    return Column(
+      children: [
+        const SizedBox(height: 10),
+        TextButton(
+          onPressed: () {
+            setState(() {
+              isLogin = !isLogin;
+            });
+          },
+          child: Text(
+            isLogin ? 'Register instead' : 'Login instead',
+            style: const TextStyle(color: Colors.blue, fontSize: 16),
+          ),
+        ),
+      ],
     );
   }
 
@@ -332,14 +320,14 @@ class _LoginPageState extends State<LoginPage>
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: _title(),
+          backgroundColor: const Color.fromARGB(255, 50, 182, 230),
         ),
         body: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(
-                    'https://img.freepik.com/free-vector/vibrant-summer-ombre-background-vector_53876-105765.jpg?w=360'),
+                image: AssetImage("assets/background.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -348,44 +336,43 @@ class _LoginPageState extends State<LoginPage>
               key: _formKey,
               child: ListView(
                 children: [
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: GestureDetector(
-                            onTap: () => {
-                              if (loginAnimation == false)
-                                {
-                                  _controllerAnimation.forward(),
-                                  loginAnimation = true
-                                }
-                              else
-                                {
-                                  _controllerAnimation.reverse(),
-                                  loginAnimation = false
-                                }
-                            },
-                            child: _animation(),
-                          ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: GestureDetector(
+                          onTap: () => {
+                            if (loginAnimation == false)
+                              {
+                                _controllerAnimation.forward(),
+                                loginAnimation = true
+                              }
+                            else
+                              {
+                                _controllerAnimation.reverse(),
+                                loginAnimation = false
+                              }
+                          },
+                          child: _animation(),
                         ),
-                        const SizedBox(height: 40),
-                        _entryField('Email', _controllerEmail),
-                        _passwordEntryField(_controllerPassword),
-                        if (isLoading) ...[
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16.0),
-                            child: CircularProgressIndicator(),
-                          ),
-                        ],
-                        _errorMessage(),
-                        _successMessage(),
-                        _submitButton(),
-                        _loginOrRegistrationButton(),
-                        // _permissionButton(),
+                      ),
+                      const SizedBox(height: 20),
+                      _entryField('Email', _controllerEmail),
+                      const SizedBox(height: 10),
+                      _passwordEntryField(_controllerPassword),
+                      if (isLoading) ...[
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16.0),
+                          child: CircularProgressIndicator(),
+                        ),
                       ],
-                    ),
+                      const SizedBox(height: 10),
+                      _errorMessage(),
+                      _successMessage(),
+                      _submitButton(),
+                      _loginOrRegistrationButton(),
+                    ],
                   ),
                 ],
               ),

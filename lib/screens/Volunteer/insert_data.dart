@@ -33,16 +33,17 @@ class _InsertVolunteerState extends State<InsertVolunteer> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: GestureDetector(
-          onTap: () => {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage()),
-            )
-          },
-          child: const Text('Helping Hands'),
-        ),
-      ),
+          title: GestureDetector(
+            onTap: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              )
+            },
+            child: const Text('Helping Hands',
+                style: TextStyle(color: Colors.white)),
+          ),
+          backgroundColor: const Color.fromARGB(255, 50, 182, 230)),
       body: ListView(
         children: [
           Container(

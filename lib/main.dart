@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Charity App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.blue,
       ),
       home: const SplashScreen(),
     );

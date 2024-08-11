@@ -24,7 +24,11 @@ class EmailVerificationPageState extends State<EmailVerificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Email Verification"),
+        title: const Text(
+          "Email Verification",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blue,
       ),
       body: Center(
         child: Padding(
@@ -55,13 +59,13 @@ class EmailVerificationPageState extends State<EmailVerificationPage> {
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => HomePage()));
                   } else {
-                    final snackBar = SnackBar(
+                    const snackBar = SnackBar(
                         content: Text(
                             'Email is not yet verified! Please check your inbox and verify.'));
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
                 },
-                child: const Text("I've verified my email!"),
+                child: const Text("I have verified my email!"),
               ),
             ],
           ),
