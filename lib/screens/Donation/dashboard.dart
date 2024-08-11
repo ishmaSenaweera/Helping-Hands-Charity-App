@@ -42,14 +42,13 @@ class _DonationHomePageState extends State<DonationHomePage> {
             const SizedBox(
               height: 20,
             ),
-            const Image(
-              width: 300,
+            Image.asset(
+              'assets/donation.jpg',
               height: 300,
-              image: NetworkImage(
-                  'https://i0.wp.com/ketto.blog/wp-content/uploads/2020/10/shutterstock_1735703225-e1603424756464.jpg?fit=547%2C292&ssl=1'),
+              width: 300,
             ),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
             MaterialButton(
               onPressed: () {

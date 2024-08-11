@@ -26,6 +26,8 @@ class _LoginPageState extends State<LoginPage>
   final _formKey = GlobalKey<FormState>();
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
+  final String _backgroundImage = 'assets/background.png';
+
   @override
   void initState() {
     super.initState();
@@ -324,65 +326,64 @@ class _LoginPageState extends State<LoginPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          title: _title(),
-          backgroundColor: const Color.fromARGB(255, 50, 182, 230),
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        title: _title(),
+        backgroundColor: const Color.fromARGB(255, 50, 182, 230),
+      ),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(_backgroundImage),
+            fit: BoxFit.fill,
+          ),
         ),
-        body: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/background.png"),
-                fit: BoxFit.cover,
-              ),
-            ),
-            padding: const EdgeInsets.all(20),
-            child: Form(
-              key: _formKey,
-              child: ListView(
+        padding: const EdgeInsets.all(20),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: GestureDetector(
-                          onTap: () => {
-                            if (loginAnimation == false)
-                              {
-                                _controllerAnimation.forward(),
-                                loginAnimation = true
-                              }
-                            else
-                              {
-                                _controllerAnimation.reverse(),
-                                loginAnimation = false
-                              }
-                          },
-                          child: _animation(),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      _entryField('Email', _controllerEmail),
-                      const SizedBox(height: 10),
-                      _passwordEntryField(_controllerPassword),
-                      if (isLoading) ...[
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 16.0),
-                          child: CircularProgressIndicator(),
-                        ),
-                      ],
-                      const SizedBox(height: 10),
-                      _errorMessage(),
-                      _successMessage(),
-                      _submitButton(),
-                      _loginOrRegistrationButton(),
-                    ],
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        if (loginAnimation == false) {
+                          _controllerAnimation.forward();
+                          loginAnimation = true;
+                        } else {
+                          _controllerAnimation.reverse();
+                          loginAnimation = false;
+                        }
+                      },
+                      child: _animation(),
+                    ),
                   ),
+                  const SizedBox(height: 20),
+                  _entryField('Email', _controllerEmail),
+                  const SizedBox(height: 10),
+                  _passwordEntryField(_controllerPassword),
+                  if (isLoading) ...[
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                      child: CircularProgressIndicator(),
+                    ),
+                  ],
+                  const SizedBox(height: 10),
+                  _errorMessage(),
+                  _successMessage(),
+                  _submitButton(),
+                  _loginOrRegistrationButton(),
                 ],
               ),
-            )));
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

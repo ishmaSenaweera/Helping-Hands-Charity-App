@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
     'assets/images/image1.png',
     'assets/images/image2.png',
     'assets/images/image3.png',
+    'assets/images/image4.png',
   ];
 
   Future<void> signOut() async {
@@ -65,12 +66,6 @@ class _HomePageState extends State<HomePage> {
         child: const Icon(Icons.logout_rounded, color: Colors.white),
       ),
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/background.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

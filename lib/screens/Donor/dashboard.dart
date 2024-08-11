@@ -42,11 +42,10 @@ class _DonorHomePageState extends State<DonorHomePage> {
             const SizedBox(
               height: 20,
             ),
-            const Image(
-              width: 300,
+            Image.asset(
+              'assets/donor.jpg',
               height: 300,
-              image: NetworkImage(
-                  'https://www.ouronlyhome.eu/wp-content/uploads/2022/03/donating-to-ngos-1024x695.png'),
+              width: 300,
             ),
             const SizedBox(
               height: 20,

@@ -42,11 +42,10 @@ class _VolunteerHomePageState extends State<VolunteerHomePage> {
             const SizedBox(
               height: 20,
             ),
-            const Image(
-              width: 300,
+            Image.asset(
+              'assets/volunteer.jpg',
               height: 300,
-              image: NetworkImage(
-                  'https://img.freepik.com/free-vector/people-volunteering-donating-money_53876-66112.jpg'),
+              width: 300,
             ),
             const SizedBox(
               height: 20,

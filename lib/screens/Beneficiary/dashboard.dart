@@ -42,11 +42,10 @@ class _BeneficiaryHomePageState extends State<BeneficiaryHomePage> {
             const SizedBox(
               height: 20,
             ),
-            const Image(
-              width: 300,
+            Image.asset(
+              'assets/beneficiary.jpg',
               height: 300,
-              image: NetworkImage(
-                  'https://healthpayerintelligence.com/images/site/article_headers/_normal/GettyImages-1205508943.png'),
+              width: 300,
             ),
             const SizedBox(
               height: 20,
