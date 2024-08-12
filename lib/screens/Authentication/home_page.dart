@@ -41,9 +41,12 @@ class _HomePageState extends State<HomePage> {
 
   Widget _userUid() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
       child: Text(
         user?.email ?? 'User email',
+        style: const TextStyle(
+          fontSize: 10.0,
+        ),
       ),
     );
   }

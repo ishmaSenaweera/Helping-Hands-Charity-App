@@ -63,7 +63,7 @@ class _FetchVolunteerState extends State<FetchVolunteer> {
                     Text(
                       'Volunteer Address: ${volunteer['Volunteer_Address']}',
                       style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w400),
+                          fontSize: 12, fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(
                       height: 5,
@@ -71,7 +71,7 @@ class _FetchVolunteerState extends State<FetchVolunteer> {
                     Text(
                       'Volunteer Email: ${volunteer['Volunteer_Email']}',
                       style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w400),
+                          fontSize: 12, fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(
                       height: 5,
@@ -79,7 +79,7 @@ class _FetchVolunteerState extends State<FetchVolunteer> {
                     Text(
                       'Volunteer Nic: ${maskNic(volunteer['Volunteer_Nic'])}',
                       style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w400),
+                          fontSize: 12, fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(
                       height: 5,
@@ -87,7 +87,7 @@ class _FetchVolunteerState extends State<FetchVolunteer> {
                     Text(
                       'Volunteer Phone: ${volunteer['Volunteer_Phone']}',
                       style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w400),
+                          fontSize: 12, fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(
                       height: 16,
@@ -131,7 +131,7 @@ class _FetchVolunteerState extends State<FetchVolunteer> {
                   Text(
                     'Volunteer Name: ${volunteer['Volunteer_Name']}',
                     style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w400),
+                        fontSize: 12, fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(
                     height: 5,
@@ -139,7 +139,7 @@ class _FetchVolunteerState extends State<FetchVolunteer> {
                   Text(
                     'Volunteer Address: ${volunteer['Volunteer_Address']}',
                     style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w400),
+                        fontSize: 12, fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(
                     height: 5,
@@ -147,7 +147,7 @@ class _FetchVolunteerState extends State<FetchVolunteer> {
                   Text(
                     'Volunteer Email: ${volunteer['Volunteer_Email']}',
                     style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w400),
+                        fontSize: 12, fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(
                     height: 5,
@@ -155,7 +155,7 @@ class _FetchVolunteerState extends State<FetchVolunteer> {
                   Text(
                     'Volunteer Nic: ${maskNic(volunteer['Volunteer_Nic'])}',
                     style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w400),
+                        fontSize: 12, fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(
                     height: 5,
@@ -163,7 +163,7 @@ class _FetchVolunteerState extends State<FetchVolunteer> {
                   Text(
                     'Volunteer Phone: ${volunteer['Volunteer_Phone']}',
                     style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w400),
+                        fontSize: 12, fontWeight: FontWeight.w400),
                   ),
                 ],
               ),

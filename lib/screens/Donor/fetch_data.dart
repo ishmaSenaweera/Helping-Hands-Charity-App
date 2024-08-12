@@ -38,35 +38,35 @@ class _FetchDataState extends State<FetchData> {
         children: [
           Text(
             'Donor\'s Name: ${donor['Donor_Name']}',
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
             'Donor\'s Address: ${donor['Donor_Address']}',
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
             'Donor\'s Email: ${donor['Donor_Email']}',
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
             'Donor\'s Nic: ${maskNic(donor['Donor_Nic'])}',
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
             'Donor\'s Phone: ${donor['Donor_Phone']}',
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

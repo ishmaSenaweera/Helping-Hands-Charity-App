@@ -150,7 +150,9 @@ class _LoginPageState extends State<LoginPage>
       }
     } catch (e) {
       setState(() {
-        errorMessage = "Could not sign in with Google! Please try again.";
+        // errorMessage = "Could not sign in with Google! Please try again.";
+        errorMessage = e.toString();
+        print(e.toString());
       });
     }
   }
@@ -321,7 +323,7 @@ class _LoginPageState extends State<LoginPage>
           },
           child: Text(
             isLogin ? 'Register instead' : 'Login instead',
-            style: const TextStyle(color: Colors.blue, fontSize: 16),
+            style: const TextStyle(color: Colors.blue, fontSize: 12),
           ),
         ),
       ],
